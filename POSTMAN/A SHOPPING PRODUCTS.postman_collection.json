@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "86fea493-b68c-40e0-a531-ef8362d17698",
+		"name": "A SHOPPING PRODUCTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23766469"
+	},
+	"item": [
+		{
+			"name": "GET ALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"todo_title\": \"study\",\n        \"todo_description\": \"work\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PRODUCT BY ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"todo_title\": \"study\",\n        \"todo_description\": \"work\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/get-id/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"get-id",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRODUCT BY ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"todo_title\": \"study\",\n        \"todo_description\": \"work\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/delete/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"delete",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE PRODUCT BY ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"product_name\": \"SHIRT\",\n        \"category_id\": 6,\n        \"product_color\": \"White\",\n        \"product_file_url\": \"Shoes.jpg\",\n        \"product_description\": \"sdfgdssdh432435676453fdvcdgf\",\n        \"product_qty\": 10,\n        \"product_price\": \"45000.00\",\n        \"created_at\": \"2024-04-04T16:36:38.000Z\",\n        \"updated_at\": null,\n        \"user_id\": 10\n    }\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/update/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"update",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD NEW PRODUCT AND SHOW NEW PRODUCTS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"product_name\": \"SH shoes\",\n        \"category_id\": 2,\n        \"product_color\": \"White\",\n        \"product_file_url\": \"adidas.png\",\n        \"product_description\": \"sdfghkfjdfsdasaSFGHFJJDSG\",\n        \"product_qty\": 1,\n        \"product_price\": \"30.000\",\n        \"user_id\": 10\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
