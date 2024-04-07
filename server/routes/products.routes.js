@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 // ? Product controoler
 const controller = require("../controller/product.controller");
 
@@ -13,10 +14,9 @@ app.get("/get-id/:product_id", controller.getProdductById());
 app.post("/add", controller.addNewProduct());
 
 // * delete product by id
-app.delete("/delete/:product_id", controller.addNewProduct());
+app.delete("/delete/:product_id", controller.deleteProductById());
 
 // * update product by id
-
 app.put("/update/:product_id", controller.updateProdcuById());
 
 module.exports = app;

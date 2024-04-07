@@ -1,60 +1,22 @@
 const express = require("express");
 const app = express();
-const knex = require("../conn");
-const tableName = "city";
+
+// ?  city controller
+const controller = require("../controller/city.controller");
 
 // * get all city
-app.get("/get", async (req, res) => {
-  const data = await knex(tableName).select("*");
-  res.status(200).json(data);
-});
-// * get category by id
-app.get("/get-id/:city_id", async (req, res) => {
-  const city_id = req.params.city_id;
-  const data = await knex(tableName).where("city_id", city_id);
-  res.status(200).json(data);
-});
+app.get("/get", controller.getAllCity());
+
+// * get city by id
+app.get("/get-id/:city_id", controller.getCityById());
+
 // * add new city an show new city
-app.post("/add", async (req, res) => {
-  try {
-    const body = req.body;
-    const [newcityId] = await knex(tableName).insert(body);
-    const newcity = await knex(tableName).where("city_id", newcityId).first();
-    res.status(200).json(newcity);
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-});
+app.post("/add", controller.addNewCity());
 
 // * delete city by id
-app.delete("/delete/:city_id", async (req, res) => {
-  try {
-    const city_id = req.params.city_id;
-    await knex(tableName).where("city_id", city_id).del();
-    res.status(200).json(`city ID ${city_id} Srayawa`);
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-});
+app.delete("/delete/:city_id", controller.deleteCityById());
 
 // * update city by id
-
-app.put("/update/:city_id", async (req, res) => {
-  try {
-    const body = req.body;
-    const city_id = req.params.city_id;
-    // ? katek ka user update dakain created at w update aty bo nanerin xoy automaticy
-    // ? katy updated at dagore bo aw katay ka update dakayawa..
-    body.updated_at = new Date().toISOString().slice(0, 19).replace("T", " ");
-    await knex(tableName).where("city_id", city_id).update(body);
-    const data = await knex(tableName).where("city_id", city_id).select("*");
-    res.status(200).json(data);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-});
+app.put("/update/:city_id", controller.updateCityById());
 
 module.exports = app;

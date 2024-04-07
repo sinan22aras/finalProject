@@ -1,80 +1,88 @@
 const knex = require("../conn");
 const tableName = "products";
 
+const models = require("../models/product.model");
+
 class ProductController {
-  // * get all product
+  // ? get all product
   getAllProduct = () => {
     return async (req, res) => {
-      const data = await knex(tableName).select("*");
-      res.status(200).json(data);
+      models
+        .getAllProductModel()
+        .then((data) => {
+          res.status(200).json(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          res.send(error, "keshayak haya la getAllProductModel");
+        });
     };
   };
 
-  // * get category by id
+  // ? get category by id
   getProdductById = () => {
     return async (req, res) => {
       const product_id = req.params.product_id;
-      const data = await knex(tableName).where("product_id", product_id);
-      res.status(200).json(data);
+      models
+        .getProductByIdModel(product_id)
+        .then((data) => {
+          res.status(200).json(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          res.send(error, "keshayak haya la getProductByIdModel");
+        });
     };
   };
 
-  // * add new product an show new product
+  // ? add new product an show new product
   addNewProduct = () => {
     return async (req, res) => {
-      try {
-        const body = req.body;
-        const [newproductId] = await knex(tableName).insert(body);
-        const newproduct = await knex(tableName)
-          .where("product_id", newproductId)
-          .first();
-        res.status(200).json(newproduct);
-      } catch (error) {
-        console.log(error);
-        res.send(error);
-      }
+      const body = req.body;
+      models
+        .addNewProduct(body)
+        .then((newproduct) => {
+          res.status(200).json(newproduct);
+        })
+        .catch((error) => {
+          console.log(error);
+          res.send(error, "keshayak haya la addNewProduct");
+        });
     };
   };
 
-  // * delete product by id
+  // ? delete product by id
   deleteProductById = () => {
     return async (req, res) => {
-      try {
-        const product_id = req.params.product_id;
-        await knex(tableName).where("product_id", product_id).del();
-        res.status(200).json(`product ID ${product_id} Srayawa`);
-      } catch (error) {
-        console.log(error);
-        res.send(error);
-      }
+      const product_id = req.params.product_id;
+      models
+        .deleteProductByIdModel(product_id)
+        .then(() => {
+          res.status(200).send(`producty ID ${product_id} Srayawa`);
+        })
+        .catch((error) => {
+          console.log(error);
+          res
+            .status(404)
+            .send(error, "keshayak haya la deleteProductByIdModel");
+        });
     };
   };
 
-  // * update product by id
+  // ? update product by id
   updateProdcuById = () => {
     return async (req, res) => {
-      try {
-        const body = req.body;
-        const product_id = req.params.product_id;
-        // Remove the created_at ield from the body object
-        delete body.created_at;
-
-        // ? katek ka user update dakain created at w update aty bo nanerin xoy automaticy
-        // ? katy updated at dagore bo aw katay ka update dakayawa..
-        body.updated_at = new Date()
-          .toISOString()
-          .slice(0, 19)
-          .replace("T", " ");
-
-        await knex(tableName).where("product_id", product_id).update(body);
-        const data = await knex(tableName)
-          .where("product_id", product_id)
-          .select("*");
-        res.status(200).json(data);
-      } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
-      }
+      const body = req.body;
+      const product_id = req.params.product_id;
+      models
+        .updateProductByIdModel(body, product_id)
+        .then((data) => {
+          res.status(200).json(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          res.status(400).json(error);
+        });
     };
   };
 }
